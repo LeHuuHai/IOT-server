@@ -25,7 +25,7 @@ State state;
 
 ## Endpoints
 
-### POST /soilMoisture
+### POST api/soilMoisture
 - **Description**: Gửi dữ liệu `SoilMoistureData` lên server.
 - **Request Body**:
   ```json
@@ -36,7 +36,7 @@ State state;
   }
   ```
 
-### POST /soilMoisture/list
+### POST api/soilMoisture/list
 - **Description**: Gửi danh sách các `SoilMoistureData` lên server.
 - **Request Body**:
   ```json
@@ -54,12 +54,12 @@ State state;
   ]
   ```
 
-### GET /soilMoisture/today/{deviceId}
+### GET api/soilMoisture/today/{deviceId}
 - **Description**: Lấy dữ liệu độ ẩm đất trong ngày của thiết bị.
 - **Parameters**:
     - `deviceId`: ID của thiết bị cần lấy dữ liệu.
 
-### GET /soilMoisture/last-week/{deviceId}
+### GET api/soilMoisture/last-week/{deviceId}
 - **Description**: Lấy dữ liệu độ ẩm đất của thiết bị trong 7 ngày gần nhất.
 - **Parameters**:
     - `deviceId`: ID của thiết bị cần lấy dữ liệu.
