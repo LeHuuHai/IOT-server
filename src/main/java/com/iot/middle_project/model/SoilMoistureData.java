@@ -15,5 +15,5 @@ import java.time.LocalDateTime;
 public class SoilMoistureData {
     private String deviceId;
     private LocalDateTime time;
-    private int soilMoistureValue;
+    private float soilMoistureValue;
 }
