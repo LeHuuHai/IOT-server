@@ -1,7 +1,7 @@
 FROM openjdk:17 AS build
 WORKDIR /app
 COPY . .
-RUN mvnw clean package -DskipTests
+RUN mvn clean package -DskipTests
 
 FROM openjdk:17-slim
 WORKDIR /app
