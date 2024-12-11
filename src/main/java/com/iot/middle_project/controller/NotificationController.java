@@ -6,10 +6,8 @@ import com.iot.middle_project.model.State;
 import com.iot.middle_project.model.Threshold;
 import com.iot.middle_project.service.ThresholdService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RestController;
 
 @Controller
 public class NotificationController {
@@ -43,7 +41,7 @@ public class NotificationController {
         messagingTemplate.convertAndSend(destination, alert);
     }
 
-    public void handle(SoilMoistureData data){
+    public void check(SoilMoistureData data){
         Alert alert = buildAlert(data);
         if(alert!=null){
             sendAlert(destination, alert);

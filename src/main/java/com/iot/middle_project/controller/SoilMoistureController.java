@@ -24,9 +24,8 @@ public class SoilMoistureController {
 
     @PostMapping("/soilMoisture")
     public String receiveMoisture(@RequestBody SoilMoistureData data) {
-        System.out.println("Received soil moisture " + data.toString());
         soilMoistureService.save(data);
-        notificationController.handle(data);
+        notificationController.check(data);
         return "Data save successfully";
     }
 
@@ -39,12 +38,12 @@ public class SoilMoistureController {
 
     @GetMapping("/soilMoisture/today/{deviceId}")
     public List<SoilMoistureData> getDataByDay(@PathVariable String deviceId){
-        return querySoilMoistureRepository.getByDay(deviceId);
+        return soilMoistureService.getToday(deviceId);
     }
 
     @GetMapping("/soilMoisture/last-week/{deviceId}")
     public List<SoilMoistureData> getDataByWeek(@PathVariable String deviceId){
-        return querySoilMoistureRepository.getByWeek(deviceId);
+        return soilMoistureService.getWeek(deviceId);
     }
 
 }

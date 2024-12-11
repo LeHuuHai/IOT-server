@@ -23,9 +23,9 @@ public class QuerySoilMoistureRepository {
     private MongoConverter converter;
 
     private Calendar getTodayCalendar(){
-        // Get start and end of today's date in UTC
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
         calendar.setTime(new Date());
+        System.out.println(calendar.getTime());
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
@@ -38,12 +38,12 @@ public class QuerySoilMoistureRepository {
         Calendar todayCalendar = getTodayCalendar();
         todayCalendar.add(Calendar.DAY_OF_MONTH, num_day_pre);
         Date today = todayCalendar.getTime();
-//        System.out.println(today);
+        System.out.println(today);
 
         Calendar tomorrowCalendar = getTodayCalendar();
         tomorrowCalendar.add(Calendar.DAY_OF_MONTH, num_day_next);
         Date tomorrow = tomorrowCalendar.getTime();
-//        System.out.println(tomorrow);
+        System.out.println(tomorrow);
 
         MongoDatabase database = mongoClient.getDatabase("SoilMoistureData");
         MongoCollection<Document> collection = database.getCollection("SoilMoisture");
@@ -51,7 +51,7 @@ public class QuerySoilMoistureRepository {
 
         AggregateIterable<Document> result = collection.aggregate(Arrays.asList(
                 new Document("$match",
-                        new Document("deviceId", deviceId)  // Filter by deviceId
+                        new Document("deviceId", deviceId)
                                 .append("time",
                                         new Document("$gte", today)
                                                 .append("$lt", tomorrow)
