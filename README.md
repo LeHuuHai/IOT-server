@@ -25,6 +25,11 @@ State state;
 
 ## Endpoints
 
+### GET api/threshold/{deviceId}
+- **Description**: Lấy dữ liệu ngưỡng độ ẩm đất của thiết bị.
+- **Parameters**:
+  - `deviceId`: ID của thiết bị cần lấy dữ liệu.
+
 ### POST api/soilMoisture
 - **Description**: Gửi dữ liệu `SoilMoistureData` lên server.
 - **Request Body**:
