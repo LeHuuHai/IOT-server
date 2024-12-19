@@ -6,8 +6,10 @@ import com.iot.middle_project.repository.SoilMoistureRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -21,39 +23,36 @@ public class SoilMoistureService {
     @Autowired
     private QuerySoilMoistureRepository querySoilMoistureRepository;
 
-    public void save(SoilMoistureData data) {
+    public SoilMoistureData save(SoilMoistureData data) {
         try {
-            soilMoistureRepository.save(data);
+            return soilMoistureRepository.save(data);
         } catch (Exception e) {
             System.out.println("Lỗi khi lưu dữ liệu: " + e.getMessage());
+            return null;
         }
     }
 
-    public ArrayList<SoilMoistureData> getToday(String deviceId){
-        try{
-            return querySoilMoistureRepository.getByDay(deviceId);
-        } catch (Exception e) {
-            System.out.println("Lỗi khi lấy dữ liệu: " + e.getMessage());
-            return new ArrayList<>();
-        }
+
+    public List<SoilMoistureData> getToday(List<SoilMoistureData> data) {
+        LocalDate today = LocalDate.now();
+        return data.stream()
+                .filter(d -> d.getTime().toLocalDate().isEqual(today))
+                .sorted(Comparator.comparing(SoilMoistureData::getTime))
+                .collect(Collectors.toList());
     }
 
-    public ArrayList<SoilMoistureData> getWeek(String deviceId){
-        try{
-            ArrayList<SoilMoistureData> datas = querySoilMoistureRepository.getByWeek(deviceId);
-            return processWeekData(datas);
-        } catch (Exception e) {
-            System.out.println("Lỗi khi lấy dữ liệu: " + e.getMessage());
-            return new ArrayList<>();
-        }
+    public List<SoilMoistureData> get7Days(List<SoilMoistureData> data) {
+        LocalDateTime now = LocalDateTime.now();
+        List<SoilMoistureData> dataRaw = data.stream()
+                .filter(d -> d.getTime().isAfter(now.minusDays(7)))
+                .sorted(Comparator.comparing(SoilMoistureData::getTime).reversed())
+                .toList();
+        return process7Days(dataRaw);
     }
 
-    public ArrayList<SoilMoistureData> processWeekData(ArrayList<SoilMoistureData> datas){
+    public List<SoilMoistureData> process7Days(List<SoilMoistureData> datas){
         if(datas.isEmpty())
             return new ArrayList<>();
-
-        String deviceId = datas.get(0).getDeviceId();
-
         Map<LocalDateTime, List<SoilMoistureData>> groupByHour = datas.stream()
                 .collect(Collectors.groupingBy(d -> d.getTime().toLocalDate().atTime(d.getTime().getHour(), 0,0)));
 
@@ -68,7 +67,6 @@ public class SoilMoistureService {
                     .orElse(0.0);
             convertedData.add(SoilMoistureData.builder()
                     .soilMoistureValue(averageSoildMoisture)
-                    .deviceId(deviceId)
                     .time(time)
                     .build());
         }

@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -12,6 +14,7 @@ import lombok.NoArgsConstructor;
 public class Alert {
     private float soilMoisture;
     private State state;
+    private LocalDateTime time;
 
     public String getAlert(){
         return state.getState() + ": " + soilMoisture;
