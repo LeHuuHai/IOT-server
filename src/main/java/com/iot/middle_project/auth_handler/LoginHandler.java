@@ -41,8 +41,6 @@ public class LoginHandler {
     public ResponseEntity<Object> loginBasic(@RequestBody UsernamePasswordDTO usernamePasswordDTO){
         String username = usernamePasswordDTO.getUsername();
         String password = usernamePasswordDTO.getPassword();
-        System.out.println(username);
-        System.out.println(password);
 
         Authentication authentication = authenticationManager.authenticate(
                         new UsernamePasswordAuthenticationToken(username, password));

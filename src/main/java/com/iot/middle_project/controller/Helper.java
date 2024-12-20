@@ -3,12 +3,9 @@ package com.iot.middle_project.controller;
 import com.iot.middle_project.dto.SoilMoisturePostDTO;
 import com.iot.middle_project.model.Device;
 import com.iot.middle_project.model.MUser;
-import com.iot.middle_project.model.SoilMoistureData;
 import com.iot.middle_project.service.DeviceService;
 import com.iot.middle_project.service.MUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatusCode;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -19,7 +16,6 @@ import java.security.PublicKey;
 import java.security.Signature;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
-import java.util.List;
 
 @Component
 public class Helper {
@@ -46,6 +42,7 @@ public class Helper {
     public boolean verifySoilMoistureDTO(SoilMoisturePostDTO soilMoisturePostDTO) throws Exception {
         // Lấy public key của thiết bị từ DeviceRepository
         String publicKeyBase64 = deviceService.findByDeviceId(soilMoisturePostDTO.getDeviceId()).getPublicKey();
+
         PublicKey publicKey = getPublicKeyFromBase64(publicKeyBase64);
 
         // Chữ ký cần xác minh (từ DTO)

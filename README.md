@@ -81,42 +81,74 @@ curl --location 'localhost:8080/api/threshold/0123456789' \
 
 ### POST api/soilMoisture
 - **Description**: Gửi dữ liệu `SoilMoistureData` lên server.
-- **Request Body**:
-  ```json
-  {
-    "deviceId": "device-001",
-    "time": "2024-12-01T16:51:25",
-    "soilMoistureValue": 4095
-  }
-  ```
 
-### POST api/soilMoisture/list
-- **Description**: Gửi danh sách các `SoilMoistureData` lên server.
-- **Request Body**:
-  ```json
-  [
-    {
-      "deviceId": "device-001",
-      "time": "2024-12-01T16:51:25",
-      "soilMoistureValue": 4095
-    },
-    {
-      "deviceId": "device-002",
-      "time": "2024-12-01T16:51:26",
-      "soilMoistureValue": 3500
-    }
-  ]
-  ```
+curl --location 'localhost:8080/api/soilMoisture' \
+--header 'Content-Type: application/json' \
+--data '{
+"time": "2024-12-19T14:45:54",
+"soilMoistureValue": 11.05,
+"deviceId": "1234567890",
+"signature": "OUrMPCqNL8CtO5ZrIfKgn4lAIFCNerBCz+dIn4jRf6DsVVsS4pMBwn4oeCGZhC2L/uHMhvD1Uo9MbDXL25uS4KgN+VHF/kFoWm7zJmBwef3gEAEmTD9SLLXZbkLUe3D9A9WCNiXB4EQHW6SxD06EyTFlwwlUBatfNiSuM8jvPno="
+}'
 
 ### GET api/soilMoisture/today/{deviceId}
 - **Description**: Lấy dữ liệu độ ẩm đất trong ngày của thiết bị.
 - **Parameters**:
-    - `deviceId`: ID của thiết bị cần lấy dữ liệu.
+- `deviceId`: ID của thiết bị cần lấy dữ liệu.
+
+curl --location 'localhost:8080/api/soilMoisture/today/1234567890' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJ0eXBlIjoiYWNjZXNzIiwic3ViIjoidGVzdCIsImlhdCI6MTczNDY4MDkwMywiZXhwIjoxNzM0Njg0NTAzfQ.PLIl9NE2zuynvRjiAaS-xFf8PuFHq-sVwtZQihQcqKwZ23bL9_QNF_KpJrSDVnlgSuAkANVuQOBN53wGKHd83Q'
+
+#### Response:
+```json
+[
+  {
+  "id": {
+    "timestamp": 1734681600,
+    "date": "2024-12-20T08:00:00.000+00:00"
+    },
+  "time": "2024-12-20T14:45:54",
+  "soilMoistureValue": 20.05
+  },
+  {
+  "id": {
+    "timestamp": 1734681656,
+    "date": "2024-12-20T08:00:56.000+00:00"
+    },
+  "time": "2024-12-20T14:45:54",
+  "soilMoistureValue": 21.05
+  }
+]
+```
 
 ### GET api/soilMoisture/last-week/{deviceId}
-- **Description**: Lấy dữ liệu độ ẩm đất của thiết bị trong 7 ngày gần nhất.
+- **Description**: Lấy dữ liệu độ ẩm đất của thiết bị trong 7 ngày gần nhất, data được tính trung bình theo giờ
 - **Parameters**:
     - `deviceId`: ID của thiết bị cần lấy dữ liệu.
+
+curl --location 'localhost:8080/api/soilMoisture/last-week/1234567890' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJ0eXBlIjoiYWNjZXNzIiwic3ViIjoidGVzdCIsImlhdCI6MTczNDY4MDkwMywiZXhwIjoxNzM0Njg0NTAzfQ.PLIl9NE2zuynvRjiAaS-xFf8PuFHq-sVwtZQihQcqKwZ23bL9_QNF_KpJrSDVnlgSuAkANVuQOBN53wGKHd83Q'
+
+#### Response:
+```json
+[
+    {
+        "id": null,
+        "time": "2024-12-19T14:00:00",
+        "soilMoistureValue": 11.05
+    },
+    {
+        "id": null,
+        "time": "2024-12-20T14:00:00",
+        "soilMoistureValue": 20.55
+    },
+    {
+        "id": null,
+        "time": "2024-12-14T12:00:00",
+        "soilMoistureValue": 27.71
+    }
+]
+```
 
 ### GET /registration
 - **Description**: Đăng ký WebSocket để nhận thông báo.
