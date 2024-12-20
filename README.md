@@ -47,25 +47,23 @@ curl --location 'localhost:8080/api/devices' \
       "id": {
         "timestamp": 1734624811,
         "date": "2024-12-19T16:13:31.000+00:00"
-        },
-        "deviceId": "0123456789",
-        "publicKey": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC8rQLcXYCRHvmYqFdgh46cTw17\nW5Ec6IimOb2yB0mJ3A1vmX/J2zZbq+u5D745wmlRfUxJAP1ZFKctel0yaElx5Ts4\naRmG66UG7i63+HyPmStRaglL20+ZhDcnK2YvDk5yzjxQ3PXZvR3QpvD/d3hR/TDY\na0ojhU/bXgvK6Cq74QIDAQAB",
-        "name": "Độ ẩm 001",
-        "low": 40.5,
-        "high": 70.3,
-        "soilMoistureData": []
+      },
+      "deviceId": "0123456789",
+      "publicKey": "MIGeMA0GCSqGSIb3DQEBAQUAA4GMADCBiAKBgHfTbiE4MSz1OTaFv5X8SHzXasSGVmpOa7eAocC+m8cQRkrd2pOcmGE0WBDH2DBurWeVDxx5ssidnrMF8OlLvU2jqbnSZ5C2a3zWlNCu80vHz4cA+R4aJz1gSPu3IR733Sa4Md1kMJTrOt9VWVUPgYF1xwYlAVEw4QnIud+a/0r1AgMBAAE=",
+      "name": "Độ ẩm 001",
+      "low": 40.5,
+      "high": 70.3
     },
     {
       "id": {
         "timestamp": 1734629071,
-          "date": "2024-12-19T17:24:31.000+00:00"
-        },
+        "date": "2024-12-19T17:24:31.000+00:00"
+      },
       "deviceId": "1234567890",
-      "publicKey": "",
+      "publicKey": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCwsAF9bRfZsHGlpw0pecKKmDBMBwYh/Ha83bnAVMyA10+IMcEqbSmBtdvGolThd+bEOH11SMQ23gpWhvwCHqqVZzEtC3LQJAZJFw1L+NmJ8e3JXqIXDSQ4NQUjj70/cJKGLZyxTcN3weZZBntcPdChsQOzeceN9k8UELhckw5wnwIDAQAB",
       "name": "Độ ẩm 002",
       "low": 50.35,
-      "high": 80.34,
-      "soilMoistureData": []
+      "high": 80.34
     }
   ]
 ```

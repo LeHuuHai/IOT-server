@@ -26,9 +26,9 @@ public class MUser implements UserDetails {
     @Indexed(unique = true)
     private String username;
     private String password;
-    @DBRef
+    @DBRef(lazy = true)
     private List<Device> devices;
-    @DBRef
+    @DBRef(lazy = true)
     private List<RefreshToken> refreshTokens;
 
 

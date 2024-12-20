@@ -1,5 +1,6 @@
 package com.iot.middle_project.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,7 +27,8 @@ public class Device {
     private String name;
     private float low;
     private float high;
-    @DBRef
+    @DBRef(lazy = true)
     @Field("data")
+    @JsonIgnore
     private List<SoilMoistureData> soilMoistureData;
 }
